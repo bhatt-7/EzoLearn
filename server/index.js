@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
     cors({
-        origin:"https://ezo-learn.vercel.app/",
+        origin:["https://ezo-learn.vercel.app/","https://vercel.com/ayush-bhatts-projects-922f2026/ezo-learn/3ctxWqJbzfYAYQa6SmRPKvDjUsy5","https://ezo-learn-ayush-bhatts-projects-922f2026.vercel.app/"],
         credentials:true,
     })
 )
