@@ -11,7 +11,7 @@ const database = require('./config/db');
 
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const {cloudinaryConnect} = require('./config/cloudinary');
+const { cloudinaryConnect } = require('./config/cloudinary');
 const fileUpload = require("express-fileupload");
 const dotenv = require("dotenv");
 
@@ -22,14 +22,33 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
     cors({
-        origin:["https://ezo-learn.vercel.app/","https://vercel.com/ayush-bhatts-projects-922f2026/ezo-learn/3ctxWqJbzfYAYQa6SmRPKvDjUsy5","https://ezo-learn-ayush-bhatts-projects-922f2026.vercel.app/"],
-        credentials:true,
+        origin: ["https://ezo-learn.vercel.app/", "https://vercel.com/ayush-bhatts-projects-922f2026/ezo-learn/3ctxWqJbzfYAYQa6SmRPKvDjUsy5", "https://ezo-learn-ayush-bhatts-projects-922f2026.vercel.app/"],
+        credentials: true,
     })
 )
+app.use((req, res, next) => {
+    res.setHeader(
+        "Access-Control-Allow-Origin","https://ezo-learn.vercel.app/",
+        "https://vercel.com/ayush-bhatts-projects-922f2026/ezo-learn/3ctxWqJbzfYAYQa6SmRPKvDjUsy5", "https://ezo-learn-ayush-bhatts-projects-922f2026.vercel.app/",
+    );
+    res.setHeader(
+        "Access-Control-Allow-Methods",
+        "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE"
+    );
+    res.setHeader(
+        "Access-Control-Allow-Headers",
+        "Content-Type, Authorization, X-Content-Type-Options, Accept, X-Requested-With, Origin, Access-Control-Request-Method, Access-Control-Request-Headers"
+    );
+    res.setHeader("Access-Control-Allow-Credentials", true);
+    res.setHeader("Access-Control-Allow-Private-Network", true);
+    res.setHeader("Access-Control-Max-Age", 259200);
+
+    next();
+});
 app.use(
     fileUpload({
-        useTempFiles:true,
-        tempFileDir:"/tmp",
+        useTempFiles: true,
+        tempFileDir: "/tmp",
     })
 )
 
@@ -37,21 +56,21 @@ cloudinaryConnect();
 
 //rputes
 
-app.use("/api/v1/auth",userRoutes);
-app.use("/api/v1/profile",profileRoutes);
-app.use("/api/v1/course",courseRoutes);
+app.use("/api/v1/auth", userRoutes);
+app.use("/api/v1/profile", profileRoutes);
+app.use("/api/v1/course", courseRoutes);
 //app.use("/api/v1/auth",userRoutes);
 app.use("/api/v1/payment", paymentRoutes);
 //app.get
 
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     return res.json({
-        success:true,
-        message:"Your server is up"
+        success: true,
+        message: "Your server is up"
     })
 })
 
 
-app.listen(PORT,()=>{
+app.listen(PORT, () => {
     console.log(`App is running at ${PORT}`);
 })
