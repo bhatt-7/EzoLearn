@@ -70,7 +70,7 @@ exports.courseEnrollmentEmail = (courseName, name) => {
     
     <body>
         <div class="container">
-            <a href="">EZOLEARN</a>
+            <a href="https://ezo-learn.vercel.app/">EZOLEARN</a>
             <div class="message">Course Registration Confirmation</div>
             <div class="body">
                 <p>Dear ${name},</p>
