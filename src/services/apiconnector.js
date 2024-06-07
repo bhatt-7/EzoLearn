@@ -11,3 +11,4 @@ export const apiConnector = (method, url, bodyData, headers, params) => {
         params: params ? params : null,
     });
 }
+axiosInstance.defaults.withCredentials=true;
